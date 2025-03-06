@@ -13,53 +13,56 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        useMaterial3: true,
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue, // Muda a cor da AppBar
+        ),
       ),
-      home: Container(
-        color: Colors.black,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          // crossAxisAlignment: CrossAxisAlignment.start,
+      home: Scaffold(
+        appBar: AppBar(title: const Text("Tarefas"), leading: Container()),
+        body: ListView(children: [Task("tarefa")]),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {print('Hello')},
+        ),
+      ),
+    );
+  }
+}
+
+class Task extends StatelessWidget {
+  final String nome;
+
+  const Task(this.nome, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Stack(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(color: Colors.red, width: 100, height: 100),
-                Container(color: Colors.orange, width: 100, height: 100),
-                Container(color: Colors.yellow, width: 100, height: 100),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(color: Colors.green, width: 100, height: 100),
-                Container(color: Colors.blue, width: 100, height: 100),
-                Container(color: Colors.blueAccent, width: 100, height: 100),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Container(color: Colors.purple, width: 100, height: 100),
-                Container(color: Colors.pink, width: 100, height: 100),
-                Container(color: Colors.white, width: 100, height: 100),
-              ],
-            ),
+            Container(color: Colors.blue, height: 140),
             Container(
-              color: Colors.amber,
-              height: 30,
-              width: 300,
-              child: Text(
-                "Deyweson",
-                style: TextStyle(color: Colors.white, fontSize: 28),
-                textAlign: TextAlign.center,
+              color: Colors.white,
+              height: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(color: Colors.black26, width: 72, height: 100),
+                  Container(
+                    width: 200,
+                    child: Text(nome, style: TextStyle(
+                      fontSize: 24,
+                      overflow: TextOverflow.ellipsis
+                    ),),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => {print("Hello")},
+                    child: Icon(Icons.arrow_drop_up),
+                  ),
+                ],
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                print('Hello');
-              },
-              child: Text("Aperte"),
             ),
           ],
         ),
