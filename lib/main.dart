@@ -20,8 +20,13 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: Scaffold(
-        appBar: AppBar(title: const Text("Tarefas"), leading: Container()),
-        body: ListView(children: [Task("tarefa")]),
+        appBar: AppBar(
+          title: const Text("Tarefas", style: TextStyle(color: Colors.white)),
+          leading: Container(),
+        ),
+        body: ListView(
+          children: [Task("tarefa"), Task("tarefa"), Task("tarefa")],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => {print('Hello')},
         ),
@@ -30,10 +35,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Task extends StatelessWidget {
-  final String nome;
+class Task extends StatefulWidget {
+  final String name;
+  const Task(this.name, {super.key});
+  @override
+  _TaskState createState() => _TaskState();
+}
 
-  const Task(this.nome, {super.key});
+class _TaskState extends State<Task> {
+  int nivel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -43,26 +53,66 @@ class Task extends StatelessWidget {
         child: Stack(
           children: [
             Container(color: Colors.blue, height: 140),
-            Container(
-              color: Colors.white,
-              height: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(color: Colors.black26, width: 72, height: 100),
-                  Container(
-                    width: 200,
-                    child: Text(nome, style: TextStyle(
-                      fontSize: 24,
-                      overflow: TextOverflow.ellipsis
-                    ),),
+            Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(color: Colors.black26, width: 72, height: 100),
+                      Container(
+                        width: 200,
+                        child: Text(
+                          widget.name,
+                          style: TextStyle(
+                            fontSize: 24,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              nivel++;
+                            });
+                          },
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [Icon(Icons.arrow_drop_up), Text("up")],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  ElevatedButton(
-                    onPressed: () => {print("Hello")},
-                    child: Icon(Icons.arrow_drop_up),
-                  ),
-                ],
-              ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Container(
+                        width: 200,
+                        child: LinearProgressIndicator(
+                          color: Colors.white,
+                          value: nivel / 100,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(12),
+                      child: Text(
+                        "Nivel $nivel",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
