@@ -47,7 +47,6 @@ class MyFirstWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              print('Hello');
             },
             child: Text("Aperte"),
           ),

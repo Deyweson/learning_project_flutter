@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learning_project/task.dart';
+import 'package:learning_project/components/task.dart';
 
 class InitialScreen extends StatefulWidget {
   const InitialScreen({super.key});
@@ -23,11 +23,12 @@ class _InitialScreenState extends State<InitialScreen> {
           children: [
             Task(
               "tarefa",
-              'https://pbs.twimg.com/media/Eu7m692XIAEvxxP?format=png&name=large',
+              "assets/images/dash.png",
               3,
             ),
-            Task("tarefa", "", 1),
-            Task("tarefa", "", 2),
+            Task("tarefa", "assets/images/bike.webp", 1),
+            Task("tarefa", "assets/images/meditar.jpeg", 2),
+            SizedBox(height: 80,)
           ],
         ),
       ),
